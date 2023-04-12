@@ -47,7 +47,7 @@ const TodoItem: React.FC<IProps> = ({ todo }) => {
       </div>
     </div>
   ) : (
-    <EditTodo />
+    <EditTodo todo={todo} setEditStatus={setEditStatus} />
   );
 };
 

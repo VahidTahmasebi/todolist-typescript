@@ -1,7 +1,18 @@
-import { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import Todo from "../models/todos";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../app/store";
+import { editTodo } from "../features/todoSlice";
 
-const EditTodo = () => {
-  const [inputValue, setInputValue] = useState<string>();
+interface Props {
+  todo: Todo;
+  setEditStatus: Dispatch<SetStateAction<boolean>>;
+}
+
+const EditTodo: React.FC<Props> = ({ todo, setEditStatus }) => {
+  const [inputValue, setInputValue] = useState<string>(todo.title);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -9,6 +20,11 @@ const EditTodo = () => {
 
   const submitChange = (e: React.FormEvent) => {
     e.preventDefault();
+    if (inputValue !== "") {
+      dispatch(editTodo({ id: todo.id, text: inputValue }));
+      setInputValue("");
+      setEditStatus(false);
+    }
   };
 
   return (

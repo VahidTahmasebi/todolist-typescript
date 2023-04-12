@@ -18,18 +18,24 @@ const todoSlice = createSlice({
       return state.filter((todo: Todo) => todo.id !== action.payload);
     },
 
+    // Reducer edit todo
+    editTodo: (state, action: PayloadAction<{ id: number; text: string }>) => {
+      const { id, text } = action.payload;
+      return state.map((todo: Todo) => {
+        return todo.id === id ? { ...todo, title: text } : todo;
+      });
+    },
+
+    // Reducer toggle todo
     toggleTodo: (state, action: PayloadAction<number>) => {
       return state.map((todo: Todo) => {
         return todo.id === action.payload
-          ? {
-              ...todo,
-              is_done: !todo.is_done,
-            }
+          ? { ...todo, is_done: !todo.is_done }
           : todo;
       });
     },
   },
 });
 
-export const { addTodo, deleteTodo, toggleTodo } = todoSlice.actions;
+export const { addTodo, deleteTodo, editTodo, toggleTodo } = todoSlice.actions;
 export default todoSlice.reducer;
