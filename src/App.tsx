@@ -2,8 +2,12 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import AddTodo from "./components/AddTodo";
 import TodoItem from "./components/TodoItem";
+import { useSelector } from "react-redux";
+import { RootState } from "./app/store";
 
 function App() {
+  const todos = useSelector((state: RootState) => state.todo);
+
   return (
     <div>
       <header>
@@ -22,7 +26,7 @@ function App() {
             <p className='lead text-muted'>
               To get started, add some items to your list:
             </p>
-            <AddTodo/>
+            <AddTodo />
           </div>
         </section>
         <div className='todosList'>
@@ -46,7 +50,7 @@ function App() {
                   </a>
                 </div>
               </nav>
-              <TodoItem/>
+              <TodoItem todo={todo} />
             </div>
           </div>
         </div>
