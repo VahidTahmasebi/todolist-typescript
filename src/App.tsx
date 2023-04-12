@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import AddTodo from "./components/AddTodo";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <p className='lead text-muted'>
               To get started, add some items to your list:
             </p>
+            <AddTodo/>
           </div>
         </section>
         <div className='todosList'>
