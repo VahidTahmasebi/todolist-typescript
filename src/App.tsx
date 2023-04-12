@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import AddTodo from "./components/AddTodo";
+import TodoItem from "./components/TodoItem";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                   </a>
                 </div>
               </nav>
+              <TodoItem/>
             </div>
           </div>
         </div>
