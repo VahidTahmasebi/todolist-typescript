@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import AddTodo from "./components/AddTodo";
 import TodoItem from "./components/TodoItem";
@@ -29,7 +29,7 @@ function App() {
       <header>
         <div className='navbar navbar-dark bg-dark shadow-sm'>
           <div className='container d-flex justify-content-between'>
-            <a href='#' className='navbar-brand d-flex align-items-center'>
+            <a href='/#' className='navbar-brand d-flex align-items-center'>
               <strong>Todo App</strong>
             </a>
           </div>
@@ -51,6 +51,7 @@ function App() {
               <nav className='col-6 mb-3'>
                 <div id='nav-tab' role='tablist' className='nav nav-tabs'>
                   <a
+                    href='/#'
                     id='nav-home-tab'
                     onClick={(e) => setFilter(FilterTypes.Undone)}
                     className={`nav-item nav-link font-weight-bold`}>
@@ -58,6 +59,7 @@ function App() {
                     <span className='badge badge-secondary'>9</span>
                   </a>
                   <a
+                    href='/#'
                     id='nav-home-tab'
                     onClick={(e) => setFilter(FilterTypes.Done)}
                     className={`nav-item nav-link font-weight-bold`}>
