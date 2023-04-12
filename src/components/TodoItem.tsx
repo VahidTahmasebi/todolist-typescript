@@ -2,9 +2,14 @@ import { useState } from "react";
 import EditTodo from "./EditTodo";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../app/store";
-import { deleteTodo } from "../features/todoSlice";
+import { deleteTodo, toggleTodo } from "../features/todoSlice";
+import Todo from "../models/todos";
 
-const TodoItem = ({ todo }) => {
+interface IProps {
+  todo: Todo;
+}
+
+const TodoItem: React.FC<IProps> = ({ todo }) => {
   const [editStatus, setEditStatus] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -13,10 +18,18 @@ const TodoItem = ({ todo }) => {
     dispatch(deleteTodo(todo.id));
   };
 
+  const toggleHandler = () => {
+    dispatch(toggleTodo(todo.id));
+  };
+
   return !editStatus ? (
     <div className='col-6 mb-2'>
       <div className='d-flex justify-content-between align-items-center border rounded p-3'>
-        <div>todo</div>
+        <div
+          onClick={toggleHandler}
+          style={{ textDecoration: todo.is_done ? "line-thorough" : "none" }}>
+          {todo.title}
+        </div>
         <div>
           <button
             type='button'

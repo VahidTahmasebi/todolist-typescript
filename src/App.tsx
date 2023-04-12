@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import AddTodo from "./components/AddTodo";
 import TodoItem from "./components/TodoItem";
 import { useSelector } from "react-redux";
 import { RootState } from "./app/store";
+import Todo from "./models/todos";
+
+enum FilterTypes {
+  Undone = "undone",
+  Done = "done",
+}
 
 function App() {
   const todos = useSelector((state: RootState) => state.todo);
+
+  const [filter, setFilter] = useState<FilterTypes>(FilterTypes.Undone);
+
+  const filteredTodos = todos.filter((todo: Todo) => {
+    if (filter === FilterTypes.Done) {
+      return todo.is_done;
+    } else {
+      return !todo.is_done;
+    }
+  });
 
   return (
     <div>
@@ -35,22 +51,24 @@ function App() {
               <nav className='col-6 mb-3'>
                 <div id='nav-tab' role='tablist' className='nav nav-tabs'>
                   <a
-                    href=''
                     id='nav-home-tab'
+                    onClick={(e) => setFilter(FilterTypes.Undone)}
                     className={`nav-item nav-link font-weight-bold`}>
-                    undone
+                    Undone
                     <span className='badge badge-secondary'>9</span>
                   </a>
                   <a
-                    href=''
                     id='nav-home-tab'
+                    onClick={(e) => setFilter(FilterTypes.Done)}
                     className={`nav-item nav-link font-weight-bold`}>
-                    done
+                    Done
                     <span className='badge badge-success'>9</span>
                   </a>
                 </div>
               </nav>
-              <TodoItem todo={todo} />
+              {filteredTodos.map((todo: Todo) => (
+                <TodoItem key={todo.id} todo={todo} />
+              ))}
             </div>
           </div>
         </div>
